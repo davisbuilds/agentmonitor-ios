@@ -28,7 +28,9 @@ struct SessionDetailView: View {
             .padding()
         }
         .navigationTitle("Session")
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         .overlay {
             if viewModel.isLoading && viewModel.messages.isEmpty {
                 ProgressView()

@@ -9,8 +9,10 @@ struct SettingsView: View {
                 connectionStatus
 
                 TextField("Server URL", text: $viewModel.serverURLString)
+                    #if os(iOS)
                     .keyboardType(.URL)
                     .textInputAutocapitalization(.never)
+                    #endif
                     .autocorrectionDisabled()
 
                 if viewModel.connection.state == .connected {

@@ -3,6 +3,7 @@ options:
   bundleIdPrefix: com.agentmonitor
   deploymentTarget:
     iOS: "18.0"
+    macOS: "15.0"
   xcodeVersion: "16.0"
   generateEmptyDirectories: true
   groupSortPosition: top
@@ -15,6 +16,7 @@ settings:
     SWIFT_STRICT_CONCURRENCY: complete
 
 targets:
+  # iOS app (iPhone + iPad)
   AgentMonitor:
     type: application
     platform: iOS
@@ -36,7 +38,6 @@ targets:
         ENABLE_PREVIEWS: true
         SUPPORTS_MACCATALYST: false
         TARGETED_DEVICE_FAMILY: "1,2"
-        # Allow localhost HTTP for dev server connection
         INFOPLIST_KEY_NSLocalNetworkUsageDescription: "AgentMonitor discovers servers on your local network"
         INFOPLIST_KEY_NSBonjourServices: "_agentmonitor._tcp"
     info:
@@ -52,6 +53,43 @@ targets:
         NSBonjourServices:
           - "_agentmonitor._tcp."
 
+  # macOS app (native)
+  AgentMonitorMac:
+    type: application
+    platform: macOS
+    sources:
+      - path: AgentMonitor
+        excludes:
+          - "**/.DS_Store"
+    resources:
+      - path: AgentMonitor/Resources/Assets.xcassets
+      - path: AgentMonitor/Resources/Preview Content
+    settings:
+      base:
+        INFOPLIST_GENERATION_MODE: GeneratedByXcode
+        PRODUCT_BUNDLE_IDENTIFIER: com.agentmonitor.mac
+        PRODUCT_NAME: "AgentMonitor"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        DEVELOPMENT_ASSET_PATHS: "AgentMonitor/Resources/Preview\\ Content"
+        ENABLE_PREVIEWS: true
+        ENABLE_HARDENED_RUNTIME: true
+    info:
+      path: AgentMonitorMac/Info.plist
+      properties:
+        CFBundleDisplayName: AgentMonitor
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true
+        NSLocalNetworkUsageDescription: "AgentMonitor discovers servers on your local network"
+        NSBonjourServices:
+          - "_agentmonitor._tcp."
+    entitlements:
+      path: AgentMonitorMac/AgentMonitor.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.network.client: true
+
+  # iOS tests
   AgentMonitorTests:
     type: bundle.unit-test
     platform: iOS
@@ -67,3 +105,37 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.agentmonitor.ios.tests
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/AgentMonitor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AgentMonitor"
         BUNDLE_LOADER: "$(TEST_HOST)"
+
+  # macOS tests
+  AgentMonitorMacTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: AgentMonitorTests
+        excludes:
+          - "**/.DS_Store"
+    dependencies:
+      - target: AgentMonitorMac
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: true
+        PRODUCT_BUNDLE_IDENTIFIER: com.agentmonitor.mac.tests
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/AgentMonitor.app/Contents/MacOS/AgentMonitor"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+schemes:
+  AgentMonitor:
+    build:
+      targets:
+        AgentMonitor: all
+    test:
+      targets:
+        - AgentMonitorTests
+
+  AgentMonitorMac:
+    build:
+      targets:
+        AgentMonitorMac: all
+    test:
+      targets:
+        - AgentMonitorMacTests

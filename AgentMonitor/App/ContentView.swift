@@ -60,7 +60,7 @@ struct ContentView: View {
     }
 
     private var settingsButton: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItem(placement: .automatic) {
             Button {
                 showSettings = true
             } label: {
