@@ -1,0 +1,27 @@
+{
+  "total_events": 1523,
+  "active_sessions": 2,
+  "live_sessions": 1,
+  "total_sessions": 45,
+  "active_agents": 2,
+  "total_tokens_in": 584200,
+  "total_tokens_out": 123400,
+  "total_cost_usd": 4.52,
+  "tool_breakdown": {
+    "Read": 245,
+    "Write": 89,
+    "Bash": 156,
+    "Edit": 67,
+    "Grep": 34
+  },
+  "agent_breakdown": {
+    "claude_code": 1200,
+    "codex": 323
+  },
+  "model_breakdown": {
+    "claude-sonnet-4-5-20250514": 980,
+    "claude-3-5-haiku-20241022": 220,
+    "codex-mini-latest": 323
+  },
+  "branches": ["main", "feature/auth", "fix/styling"]
+}

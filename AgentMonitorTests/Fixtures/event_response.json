@@ -1,0 +1,21 @@
+{
+  "id": 42,
+  "event_id": "evt-abc123",
+  "session_id": "sess-001",
+  "agent_type": "claude_code",
+  "event_type": "tool_use",
+  "tool_name": "Read",
+  "status": "success",
+  "tokens_in": 1200,
+  "tokens_out": 340,
+  "cache_read_tokens": 500,
+  "cache_write_tokens": null,
+  "branch": "main",
+  "project": "agentmonitor",
+  "duration_ms": 45,
+  "created_at": "2026-03-21T10:30:00.000Z",
+  "client_timestamp": "2026-03-21T10:30:00.000Z",
+  "model": "claude-sonnet-4-5-20250514",
+  "cost_usd": 0.0023,
+  "source": "hook"
+}
