@@ -15,10 +15,6 @@ struct Session: Codable, Identifiable, Hashable, Sendable {
         project ?? "Unknown Project"
     }
 
-    var relativeStart: String {
-        Formatters.relativeDate(from: startedAt)
-    }
-
     var isActive: Bool {
         status == .active
     }

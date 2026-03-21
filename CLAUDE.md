@@ -5,7 +5,7 @@ Native iOS companion app for [AgentMonitor](../agentmonitor), providing real-tim
 
 ## Tech Stack
 - **Language**: Swift 6
-- **UI**: SwiftUI (iOS 17+)
+- **UI**: SwiftUI (iOS 18+)
 - **Architecture**: MVVM with `@Observable`
 - **Networking**: URLSession (no third-party dependencies)
 - **Persistence**: SwiftData (cache layer)
@@ -32,11 +32,14 @@ AgentMonitor/
 - No third-party dependencies — everything built on Apple frameworks
 
 ## Building
-Open in Xcode 16+ or build via Swift Package Manager:
+Open `AgentMonitor.xcodeproj` in Xcode 16+ or build from CLI:
 ```bash
-swift build
-swift test
+xcodegen generate                    # regenerate project from project.yml
+xcodebuild build -scheme AgentMonitor -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
+xcodebuild test  -scheme AgentMonitor -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
 ```
+
+The Xcode project is generated from `project.yml` using [XcodeGen](https://github.com/yonaskolb/XcodeGen). Regenerate after adding/removing files.
 
 ## Server Connection
 The app connects to an agentmonitor server (default `http://127.0.0.1:3141`). The server must be running for the app to function. See the agentmonitor project for server setup.

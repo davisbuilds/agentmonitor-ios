@@ -51,7 +51,7 @@ private struct EventRow: View {
 
             Spacer()
 
-            Text(event.relativeTime)
+            Text(Formatters.relativeDate(from: event.createdAt))
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
         }

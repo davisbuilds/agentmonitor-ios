@@ -1,6 +1,6 @@
 import Testing
 import Foundation
-@testable import AgentMonitorCore
+@testable import AgentMonitor
 
 @Suite("Model Decoding Tests")
 struct ModelDecodingTests {
@@ -103,8 +103,16 @@ struct ModelDecodingTests {
     // MARK: - Helpers
 
     private func loadFixture(_ name: String) -> Data {
-        // In SPM test targets, resources are in Bundle.module
-        let url = Bundle.module.url(forResource: name, withExtension: "json", subdirectory: "Fixtures")!
+        let testBundle = Bundle(for: BundleToken.self)
+        // XcodeGen copies resources flat (no subdirectory) or in Fixtures/ depending on config
+        let url = testBundle.url(forResource: name, withExtension: "json", subdirectory: "Fixtures")
+            ?? testBundle.url(forResource: name, withExtension: "json")
+        guard let url else {
+            fatalError("Fixture \(name).json not found in test bundle")
+        }
         return try! Data(contentsOf: url)
     }
 }
+
+// Anchor class for Bundle(for:) in Xcode test targets
+private class BundleToken {}

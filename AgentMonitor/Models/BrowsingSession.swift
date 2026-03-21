@@ -20,6 +20,7 @@ struct BrowsingSession: Codable, Identifiable, Hashable, Sendable {
         parentSessionId != nil
     }
 
+    @MainActor
     var formattedDateRange: String {
         guard let start = startedAt else { return "Unknown" }
         let startStr = Formatters.shortDate(from: start)

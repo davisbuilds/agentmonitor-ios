@@ -36,7 +36,7 @@ struct AgentCardView: View {
             }
 
             HStack {
-                Text(session.relativeStart)
+                Text(Formatters.relativeDate(from: session.startedAt))
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
                 Spacer()

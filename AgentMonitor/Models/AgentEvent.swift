@@ -26,13 +26,7 @@ struct AgentEvent: Codable, Identifiable, Hashable, Sendable {
     }
 
     var formattedCost: String {
-        guard let cost = costUsd, cost > 0 else { return "$0.00" }
-        if cost < 0.01 { return "<$0.01" }
-        return String(format: "$%.2f", cost)
-    }
-
-    var relativeTime: String {
-        Formatters.relativeDate(from: createdAt)
+        Formatters.cost(costUsd ?? 0)
     }
 }
 

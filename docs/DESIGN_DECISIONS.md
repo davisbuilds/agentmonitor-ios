@@ -20,18 +20,18 @@ Each decision is recorded with context, options considered, choice made, and rat
 
 ---
 
-## DD-002: iOS 17+ Minimum Target
+## DD-002: iOS 18+ Minimum Target
 
 **Context**: Need to choose a minimum deployment target.
 
 **Options**:
 1. iOS 16 — wider compatibility, older SwiftUI APIs
 2. iOS 17 — `@Observable`, mature SwiftData, SwiftCharts improvements
-3. iOS 18 — newest APIs but excludes recent devices
+3. iOS 18 — modern Tab API, improved SwiftUI, latest Swift 6 concurrency
 
-**Decision**: iOS 17+
+**Decision**: iOS 18+
 
-**Rationale**: iOS 17 introduced `@Observable` (replacing `ObservableObject`/`@Published` boilerplate), stabilized SwiftData, and improved SwiftCharts. The target audience (Mac developers) overwhelmingly runs current iOS versions. iOS 17+ covers 95%+ of active devices as of early 2026.
+**Rationale**: iOS 18 introduced the modern `Tab` API for `TabView` (replacing the old `.tag()` pattern), improved SwiftUI navigation, and has full Swift 6 strict concurrency support. The target audience (Mac developers) overwhelmingly runs current iOS versions. iOS 18+ covers 90%+ of active devices as of early 2026, and these users tend to update quickly.
 
 ---
 

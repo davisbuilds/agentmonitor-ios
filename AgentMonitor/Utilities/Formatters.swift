@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 enum Formatters {
     private static let isoParser: ISO8601DateFormatter = {
         let f = ISO8601DateFormatter()
@@ -52,23 +53,23 @@ enum Formatters {
         return shortTimeFormatter.string(from: date)
     }
 
-    static func cost(_ value: Double) -> String {
+    nonisolated static func cost(_ value: Double) -> String {
         if value == 0 { return "$0.00" }
         if value < 0.01 { return "<$0.01" }
         return String(format: "$%.2f", value)
     }
 
-    static func compactNumber(_ value: Int) -> String {
+    nonisolated static func compactNumber(_ value: Int) -> String {
         if value < 1_000 { return "\(value)" }
         if value < 1_000_000 { return String(format: "%.1fK", Double(value) / 1_000) }
         return String(format: "%.1fM", Double(value) / 1_000_000)
     }
 
-    static func tokens(_ value: Int) -> String {
+    nonisolated static func tokens(_ value: Int) -> String {
         compactNumber(value)
     }
 
-    static func duration(ms: Int) -> String {
+    nonisolated static func duration(ms: Int) -> String {
         if ms < 1000 { return "\(ms)ms" }
         if ms < 60_000 { return String(format: "%.1fs", Double(ms) / 1000) }
         let minutes = ms / 60_000
