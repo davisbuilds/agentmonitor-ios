@@ -29,3 +29,6 @@ Package.resolved
 .idea/
 .vscode/
 *.code-workspace
+
+# Local-only archive (completed plans, research, sessions kept out of the public tree)
+**/archive/
