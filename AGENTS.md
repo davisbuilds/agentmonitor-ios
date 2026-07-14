@@ -46,10 +46,12 @@ The app connects to an agentmonitor server (default `http://127.0.0.1:3141`). Th
 
 ## Documentation
 - `docs/ARCHITECTURE.md` — System design and module map
-- `docs/PLAN.md` — Phased implementation plan
 - `docs/DESIGN_DECISIONS.md` — Rationale for every major technical choice
 - `docs/TEST_STRATEGY.md` — Testing approach by layer
 - `docs/API_CONTRACT.md` — Server API reference
+- `docs/project/GIT_HISTORY_POLICY.md` — Merge strategy and branch hygiene
+
+The completed build plan is archived at `docs/archive/plans/PLAN.md` (local-only; `**/archive/` is gitignored).
 
 ## Working Agreement
 
