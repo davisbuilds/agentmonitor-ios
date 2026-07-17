@@ -36,10 +36,16 @@ Open `AgentMonitor.xcodeproj` in Xcode 16+ or build from CLI:
 ```bash
 xcodegen generate                    # regenerate project from project.yml
 xcodebuild build -scheme AgentMonitor -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
-xcodebuild test  -scheme AgentMonitor -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
 ```
 
 The Xcode project is generated from `project.yml` using [XcodeGen](https://github.com/yonaskolb/XcodeGen). Regenerate after adding/removing files.
+
+## Testing
+
+- **Run tests**: `xcodebuild test -scheme AgentMonitor -destination 'platform=iOS Simulator,name=iPhone 17 Pro'` (or Cmd+U). The `AgentMonitorTests` target is declared in `project.yml`; regenerate with `xcodegen generate` after adding test files.
+- **Framework is Swift Testing** (`@Test`, `#expect`), not XCTest — match the existing style in `AgentMonitorTests/` rather than importing XCTest.
+- **TDD**: red/green for new features, major refactors, and large changes. The red step must fail for the behavior you're about to fix — a test that fails only because the symbol doesn't exist yet is a stub, not a red test; write the signature first, then a test that fails on the behavior. Skip the red step for code with no behavior to assert, and cover it after — but note a `Codable` model doesn't qualify: decoding is the contract against the server, and that's what every existing test here asserts. For smaller edits, still run the relevant existing tests before wrapping up.
+- **Coverage is thin**: `ModelDecodingTests.swift` is the only test file (6 tests over decoding and unknown-enum handling). `docs/TEST_STRATEGY.md` describes the intended pyramid — treat it as the target, not what exists. Services and ViewModels are untested; that's where TDD earns the most. See `docs/project/BACKLOG.md`.
 
 ## Server Connection
 The app connects to an agentmonitor server (default `http://127.0.0.1:3141`). The server must be running for the app to function. See the agentmonitor project for server setup.
@@ -47,7 +53,7 @@ The app connects to an agentmonitor server (default `http://127.0.0.1:3141`). Th
 ## Documentation
 - `docs/ARCHITECTURE.md` — System design and module map
 - `docs/DESIGN_DECISIONS.md` — Rationale for every major technical choice
-- `docs/TEST_STRATEGY.md` — Testing approach by layer
+- `docs/TEST_STRATEGY.md` — Intended testing approach by layer (target state; current coverage is model-decoding only)
 - `docs/API_CONTRACT.md` — Server API reference
 - `docs/project/GIT_HISTORY_POLICY.md` — Merge strategy and branch hygiene
 
