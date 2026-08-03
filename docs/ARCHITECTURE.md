@@ -2,7 +2,7 @@
 
 ## Overview
 
-AgentMonitor iOS is a native Swift companion app for the [AgentMonitor](../README.md) server. It connects to a running agentmonitor instance over HTTP/SSE and provides real-time monitoring, session browsing, analytics, and search — mirroring the Svelte 5 web dashboard.
+AgentMonitor iOS is a native Swift companion app for the [AgentMonitor](../../agentmonitor/README.md) server. It connects to a running agentmonitor instance over HTTP/SSE and provides real-time monitoring, session browsing, analytics, and search — mirroring the Svelte 5 web dashboard.
 
 ## System Context
 

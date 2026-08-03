@@ -55,6 +55,8 @@ The app connects to an agentmonitor server (default `http://127.0.0.1:3141`). Th
 - `docs/DESIGN_DECISIONS.md` — Rationale for every major technical choice
 - `docs/TEST_STRATEGY.md` — Intended testing approach by layer (target state; current coverage is model-decoding only)
 - `docs/API_CONTRACT.md` — Server API reference
+- `docs/project/ROADMAP.md` — Current direction and completed foundation
+- `docs/project/BACKLOG.md` — Future-only durable follow-ups
 - `docs/project/GIT_HISTORY_POLICY.md` — Merge strategy and branch hygiene
 
 The completed build plan is archived at `docs/archive/plans/PLAN.md` (local-only; `**/archive/` is gitignored).
@@ -64,5 +66,5 @@ The completed build plan is archived at `docs/archive/plans/PLAN.md` (local-only
 - **Push back before building.** If a request is incoherent or self-contradictory, or a spec/plan is vague or skips key decisions, stop and interview me — ask clarifying questions and confirm intent before writing code or changing files. Don't guess at scope or comply silently. (Clear, well-scoped requests don't need this.)
 - **Keep docs current.** After a significant change, PR, or completed spec/plan, update any now-stale reference docs under `docs/` so they match shipped behavior. Skip this for trivial changes.
 - **Commit logically.** Commit completed work in coherent chunks as you proceed. Push only when explicitly asked.
-- **Log findings in `BACKLOG.md`.** Note design gaps, tech debt, or better approaches you spot mid-task in `docs/project/BACKLOG.md`; fix simple/quick ones inline and call them out.
+- **Log durable follow-ups in `BACKLOG.md`.** Note design gaps, tech debt, or better approaches noticed during execution in `docs/project/BACKLOG.md`; fix simple, quick, or blocking issues inline and call them out. Record **What / Why or evidence / Recommendation or trigger**, keep the backlog future-only, and move shipped work to `docs/project/ROADMAP.md`.
 - **Re-ground after compaction.** A compaction summary loses precise paths, context, and verification state — before continuing, re-read this project's `AGENTS.md`, its reference docs, and recent commits.
