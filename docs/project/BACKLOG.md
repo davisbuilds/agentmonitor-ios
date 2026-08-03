@@ -2,13 +2,23 @@
 
 Future-only design gaps, tech debt, and better ways to do a thing noticed during normal
 execution. Fix simple, quick, or blocking issues inline; capture only durable follow-ups
-worth revisiting cold. This is not a changelog or implementation plan — completed work
-graduates to `ROADMAP.md`, while enduring decisions belong in the owning system document.
+worth revisiting cold. Add an item only when it cannot be fixed inline and represents
+recurring friction, meaningful risk or cost, an unresolved decision, or a concrete
+trigger. This is not a changelog or implementation plan — completed work graduates to
+`ROADMAP.md`, while enduring decisions belong in the owning system document.
 
-Each entry: **What** / **Why or evidence** / optional **Next** / optional **Revisit when** /
-**Status**. Use **Next** for the smallest action that makes an item actionable and
-**Revisit when** only for an intentional external or measurable gate. Label an unmeasured
-causal claim as a hypothesis.
+This repository is the canonical owner for its follow-ups; cross-repository work belongs
+with the repository that owns the capability, with links from affected repositories only
+when useful. Date and source volatile external or runtime claims, or label them a
+hypothesis.
+
+Each entry: **What** / **Why or evidence** / optional **Next** / optional **Revisit when**.
+Use **Next** for the smallest action that makes an item actionable and **Revisit when**
+only for an intentional external or measurable gate.
+
+Review this file after a significant shipped slice or at least quarterly: confirm each
+item is still open, refresh dated evidence, promote selected work to a plan, convert it
+to a trigger, or move completed decisions and work to the Roadmap or decision history.
 
 ## Open
 
@@ -26,5 +36,5 @@ causal claim as a hypothesis.
 - **Next**: cover `SSEClient` event parsing and `APIClient` error paths first (both are
   pure enough to test off-simulator); leave the UI tier aspirational. Either mark the unbuilt
   layers in `TEST_STRATEGY.md` as target-state or trim them to what's real.
-- **Status**: open. Noted 2026-07-16 during the portfolio TDD-guidance pass; `AGENTS.md` Testing
-  section now states the real coverage and flags the doc as target-state.
+- Noted 2026-07-16 during the portfolio TDD-guidance pass; `AGENTS.md` Testing section
+  now states the real coverage and flags the doc as target-state.
