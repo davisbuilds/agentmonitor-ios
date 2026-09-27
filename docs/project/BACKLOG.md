@@ -4,8 +4,10 @@ Future-only design gaps, tech debt, and better ways to do a thing noticed during
 execution. Fix simple, quick, or blocking issues inline; capture only durable follow-ups
 worth revisiting cold. Add an item only when it cannot be fixed inline and represents
 recurring friction, meaningful risk or cost, an unresolved decision, or a concrete
-trigger. This is not a changelog or implementation plan — completed work graduates to
-`ROADMAP.md`, while enduring decisions belong in the owning system document.
+trigger. This is not a changelog or implementation plan. Agents can work directly
+from a clear entry; use an issue when persistent discussion or coordination helps.
+Keep one detailed owner with short links where useful. Selected direction belongs
+in `ROADMAP.md`; commits and pull requests hold routine shipped detail.
 
 This repository is the canonical owner for its follow-ups; cross-repository work belongs
 with the repository that owns the capability, with links from affected repositories only
@@ -16,9 +18,9 @@ Each entry: **What** / **Why or evidence** / optional **Next** / optional **Revi
 Use **Next** for the smallest action that makes an item actionable and **Revisit when**
 only for an intentional external or measurable gate.
 
-Review this file after a significant shipped slice or at least quarterly: confirm each
-item is still open, refresh dated evidence, promote selected work to a plan, convert it
-to a trigger, or move completed decisions and work to the Roadmap or decision history.
+Reconcile an entry when work affects it: refresh its evidence, retain the unresolved
+remainder, or remove it when resolved. Revisit the broader list during prioritization
+or when stale entries impede work.
 
 ## Open
 
