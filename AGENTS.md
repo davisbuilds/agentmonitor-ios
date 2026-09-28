@@ -1,7 +1,7 @@
 # AGENTS.md
 
 ## Overview
-Native iOS companion app for [AgentMonitor](../agentmonitor), providing real-time monitoring of AI agent activity (Claude Code, Codex) from iPhone and iPad.
+Native iOS companion app for [AgentMonitor](https://github.com/davisbuilds/agentmonitor), providing real-time monitoring of AI agent activity (Claude Code, Codex) from iPhone, iPad, and Mac.
 
 ## Tech Stack
 - **Language**: Swift 6
@@ -51,6 +51,8 @@ The Xcode project is generated from `project.yml` using [XcodeGen](https://githu
 The app connects to an agentmonitor server (default `http://127.0.0.1:3141`). The server must be running for the app to function. See the agentmonitor project for server setup.
 
 ## Documentation
+- `README.md` — public introduction, setup, and reference routing
+- `CONTRIBUTING.md` — public contribution scope and review expectations
 - `docs/ARCHITECTURE.md` — System design and module map
 - `docs/DESIGN_DECISIONS.md` — Rationale for every major technical choice
 - `docs/TEST_STRATEGY.md` — Intended testing approach by layer (target state; current coverage is model-decoding only)
@@ -64,7 +66,7 @@ The completed build plan is archived at `docs/archive/plans/PLAN.md` (local-only
 ## Working Agreement
 
 - **Push back before building.** If a request is incoherent or self-contradictory, or a spec/plan is vague or skips key decisions, stop and interview me — ask clarifying questions and confirm intent before writing code or changing files. Don't guess at scope or comply silently. (Clear, well-scoped requests don't need this.)
-- **Keep docs current.** After a significant change, PR, or completed spec/plan, update any now-stale reference docs under `docs/` so they match shipped behavior. Skip this for trivial changes.
+- **Keep docs current.** Update the owning reference when its stated behavior, contract, procedure, or direction changes. Reconcile an affected Backlog entry as work lands; update Roadmap when selected direction changes.
 - **Commit logically.** Commit completed work in coherent chunks as you proceed. Push only when explicitly asked.
-- **Log durable follow-ups in `BACKLOG.md`.** Note design gaps, tech debt, or better approaches noticed during execution in `docs/project/BACKLOG.md`; fix simple, quick, or blocking issues inline and call them out. Add an item only for recurring friction, meaningful risk/cost, an unresolved decision, or a concrete trigger. Record **What / Why or evidence / Next or Revisit when**; keep the backlog future-only, use the capability-owning repository as canonical for cross-repo work, date/source volatile claims (or label a hypothesis), and move shipped work to `docs/project/ROADMAP.md`. Review after a significant shipped slice or at least quarterly.
+- **Log durable follow-ups in `BACKLOG.md`.** Fix simple issues inline. For durable work, record What, Why or evidence, and a Next action or Revisit trigger; date volatile claims or mark them as hypotheses. Agents may execute entries directly. Use issues when discussion or coordination helps, keep one detailed owner, and reconcile affected entries as work lands.
 - **Re-ground after compaction.** A compaction summary loses precise paths, context, and verification state — before continuing, re-read this project's `AGENTS.md`, its reference docs, and recent commits.

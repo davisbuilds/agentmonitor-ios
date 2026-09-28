@@ -1,6 +1,7 @@
 # Git History and Branch Hygiene
 
-Last updated: July 7, 2026
+Merge settings verified 2026-09-27 with `gh api repos/davisbuilds/agentmonitor-ios`.
+Query GitHub again before relying on current remote settings.
 
 ## Repository Merge Settings
 
@@ -27,15 +28,12 @@ is this repository's standing merge policy.
 
 - **Default — merge commit.** Preserves the PR as a discoverable boundary in `main`'s history. Best when the PR contains multiple meaningful commits worth keeping addressable individually.
 - **Rebase merge.** Use when the PR's commits are clean and the linear history reads better without an extra merge node. Avoid if the PR's commits are noisy (WIP, fixups) — clean them up locally first.
-- **Authoring expectation.** Because squash is gone, individual PR commits land in `main`. Keep PR commit messages tidy: meaningful subjects, no WIP markers, no fixup chains. Squash or reword locally before opening the PR if needed. End agent commit/PR messages with the co-author trailer:
-
-  ```
-  Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
-  ```
+- **Authoring expectation.** Because squash is gone, individual PR commits land in `main`. Keep PR commit messages tidy: meaningful subjects, no WIP markers, no fixup chains. Squash or reword locally before opening the PR if needed. Attribute actual contributors accurately.
 
 ## CI Gates
 
-No CI workflow yet — the gate runs locally via `xcodebuild` against the iOS Simulator.
+The publication-hygiene workflow does not build or test the app. Build and test
+gates run locally via `xcodebuild` against the iOS Simulator.
 
 Quality gates before merge (also the pre-push expectation locally):
 
@@ -44,10 +42,9 @@ Quality gates before merge (also the pre-push expectation locally):
 
 ## Branch Protection Status
 
-This is a public repository, so the branch-protection APIs are available. No
-required reviews or status checks are enforced as branch rules yet — CI gates
-below are enforced by convention. Enable `required_conversation_resolution` when
-the review flow warrants it.
+Query `gh api repos/davisbuilds/agentmonitor-ios/branches/main/protection` for
+effective branch rules before relying on them. Local build and test expectations
+remain relevant regardless of remote enforcement.
 
 ## Recommended Ongoing Hygiene
 

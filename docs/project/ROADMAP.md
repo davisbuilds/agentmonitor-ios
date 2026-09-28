@@ -33,5 +33,5 @@ and search to iPhone, iPad, and Mac while keeping the server as the source of tr
 - Push notifications remain deferred until there is an appropriate server-side alerting
   contract.
 
-Completed work is recorded here; future friction and deferred follow-ups belong in
-[BACKLOG.md](BACKLOG.md).
+Future friction and deferred follow-ups belong in [BACKLOG.md](BACKLOG.md).
+Commits and pull requests retain routine completed detail.
