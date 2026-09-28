@@ -1,20 +1,44 @@
 # Contributing
 
+## Welcome and scope
+
 Focused bug fixes, client/server contract corrections, accessibility improvements,
 tests, and documentation changes are welcome. Discuss substantial features,
 dependencies, integrations, or public-interface changes before implementation.
-The server is maintained in a separate
-[repository](https://github.com/davisbuilds/agentmonitor); coordinate server
-contract changes there rather than assuming this client owns them.
 
-Agent-assisted work is welcome. The submitter should understand the change's
-purpose, important behavior, tradeoffs, and verification limits. A prompting
-diary or human rewrite is not required.
+This is a solo-maintained project; contributions do not imply a support or
+response-time commitment.
 
-Start with [README.md](README.md) for setup. Keep PRs focused, describe what
-changed and what you checked, and note checks you could not run. The existing
-tests cover model decoding only; [AGENTS.md](AGENTS.md) and
-[TEST_STRATEGY.md](docs/TEST_STRATEGY.md) explain the current and target test
-surfaces. The [history policy](docs/project/GIT_HISTORY_POLICY.md) preserves
-individual commits: tidy WIP commits before submitting a PR. A maintainer merges
-after applicable checks and review.
+## Understanding and agent use
+
+Agent-assisted work is welcome. Submitters should understand the change's purpose,
+important behavior, tradeoffs, and verification limits. Explain what you checked
+and what remains uncertain; no prompt transcript or manual rewrite is required.
+
+The server has a separate [repository](https://github.com/davisbuilds/agentmonitor).
+Coordinate server contract changes there; this client does not own them.
+
+## Choosing work
+
+[Roadmap](docs/project/ROADMAP.md) records selected direction;
+[Backlog](docs/project/BACKLOG.md) records unresolved work. Backlog entries can be
+delegated directly to agents or become focused PRs. Use an issue when persistent
+discussion, investigation, or coordination helps; there is no mandatory graduation
+step. An entry or issue alone is not a feature commitment. When an issue owns the
+details, keep only a useful linked summary in the backlog.
+
+## Delivering a change
+
+Work on a focused branch from `main` (or an appropriate parent for stacked work).
+Keep commits coherent. Describe the problem and resulting behavior in the PR,
+with relevant verification and limitations. Merge after applicable checks pass
+and review conversations are resolved.
+
+Start with [README](README.md) for setup. Existing tests cover model decoding;
+[AGENTS](AGENTS.md#testing) and [Test strategy](docs/TEST_STRATEGY.md) distinguish
+current coverage from intended coverage. The
+[Git policy](docs/project/GIT_HISTORY_POLICY.md) preserves individual commits;
+tidy WIP/fixup commits before submission.
+
+Update the owning reference when its claims change and reconcile affected backlog
+entries. Roadmap tracks direction; Git and PRs hold routine delivery history.
