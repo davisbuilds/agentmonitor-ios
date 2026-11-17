@@ -61,9 +61,22 @@ The app connects to an agentmonitor server (default `http://127.0.0.1:3141`). Th
 - `docs/project/BACKLOG.md` — Future-only durable follow-ups
 - `docs/project/GIT_HISTORY_POLICY.md` — Merge strategy and branch hygiene
 
-The completed build plan is archived at `docs/archive/plans/PLAN.md` (local-only; `**/archive/` is gitignored).
+For the delivered foundation, use the [Roadmap](docs/project/ROADMAP.md) and
+[design decisions](docs/DESIGN_DECISIONS.md).
 
 ## Working Agreement
+
+Use the accepted conversation, ticket, or existing contract when it defines the
+work. Save a design, spec, or plan when it carries decisions, acceptance
+criteria, coordination, or execution sequencing that someone will need. If
+unfinished work transfers between agents, sessions, or devices, leave a brief
+handoff when the existing context is insufficient. Include the goal, decisions, progress,
+remaining work, verification limits, and links to the owning references. Commit shared
+execution documents, keep their status current, and use the authorized push or
+sync workflow to share them. Before archiving a completed artifact, move lasting
+decisions and open work to maintained references and repair incoming links.
+Archive under `docs/archive/` and use Git history to recover committed originals.
+Keep tracked documents suitable for public readers and keep private evidence local.
 
 - **Push back before building.** If a request is incoherent or self-contradictory, or a spec/plan is vague or skips key decisions, stop and interview me — ask clarifying questions and confirm intent before writing code or changing files. Don't guess at scope or comply silently. (Clear, well-scoped requests don't need this.)
 - **Keep docs current.** Update the owning reference when its stated behavior, contract, procedure, or direction changes. Reconcile an affected Backlog entry as work lands; update Roadmap when selected direction changes.
