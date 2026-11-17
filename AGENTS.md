@@ -61,12 +61,19 @@ The app connects to an agentmonitor server (default `http://127.0.0.1:3141`). Th
 - `docs/project/BACKLOG.md` — Future-only durable follow-ups
 - `docs/project/GIT_HISTORY_POLICY.md` — Merge strategy and branch hygiene
 
-The completed build plan is archived at `docs/archive/plans/PLAN.md` (local-only; `**/archive/` is gitignored).
+For the delivered foundation, use the [Roadmap](docs/project/ROADMAP.md) and
+[design decisions](docs/DESIGN_DECISIONS.md).
 
 ## Working Agreement
 
 - **Push back before building.** If a request is incoherent or self-contradictory, or a spec/plan is vague or skips key decisions, stop and interview me — ask clarifying questions and confirm intent before writing code or changing files. Don't guess at scope or comply silently. (Clear, well-scoped requests don't need this.)
-- **Keep docs current.** Update the owning reference when its stated behavior, contract, procedure, or direction changes. Reconcile an affected Backlog entry as work lands; update Roadmap when selected direction changes.
-- **Commit logically.** Commit completed work in coherent chunks as you proceed. Push only when explicitly asked.
 - **Log durable follow-ups in `BACKLOG.md`.** Fix simple issues inline. For durable work, record What, Why or evidence, and a Next action or Revisit trigger; date volatile claims or mark them as hypotheses. Agents may execute entries directly. Use issues when discussion or coordination helps, keep one detailed owner, and reconcile affected entries as work lands.
+- **Keep docs current.** Update the owning reference when its stated behavior, contract, procedure, or direction changes. Reconcile an affected Backlog entry as work lands; update Roadmap when selected direction changes.
+- **Planning and continuity.** Reuse clear task context. Save planning docs when
+  decisions, acceptance, or coordination need persistence. Leave a brief handoff
+  only when needed to resume unfinished work. Commit shared docs and keep status
+  current. Before archiving under `docs/archive/`, preserve lasting decisions
+  and open work in maintained docs and repair links. Keep tracked docs suitable
+  for public readers and private evidence local.
+- **Commit logically.** Commit completed work in coherent chunks as you proceed. Push only when explicitly asked.
 - **Re-ground after compaction.** A compaction summary loses precise paths, context, and verification state — before continuing, re-read this project's `AGENTS.md`, its reference docs, and recent commits.
