@@ -41,3 +41,16 @@ Fix simple, quick, or blocking issues inline when within the active task's scope
   layers in `TEST_STRATEGY.md` as target-state or trim them to what's real.
 - Noted 2026-07-16 during the portfolio TDD-guidance pass; `AGENTS.md` Testing section
   now states the real coverage and flags the doc as target-state.
+
+### A fresh clone cannot build: `Preview Content` is untracked
+
+- **What**: `project.yml` names `AgentMonitor/Resources/Preview Content` as a
+  resource and in `DEVELOPMENT_ASSET_PATHS`, but the directory is empty and Git
+  does not track empty directories, so a fresh clone or worktree lacks it.
+  `xcodebuild` then fails `ValidateDevelopmentAssets` ("One of the paths in
+  DEVELOPMENT_ASSET_PATHS does not exist") before any test runs.
+- **Why or evidence**: 2026-11-17, a fresh worktree of `main` failed the documented
+  gate with exit 65; after `mkdir -p "AgentMonitor/Resources/Preview Content"` the
+  same command built and passed all 6 tests. CI does not build, so nothing caught it.
+- **Next**: track a placeholder (for example a preview asset catalog) or drop the
+  path from `project.yml`; then remove the `mkdir -p` step from the `AGENTS.md` gate.

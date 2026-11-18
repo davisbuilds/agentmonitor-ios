@@ -1,79 +1,75 @@
 # AGENTS.md
 
-## Overview
-Native iOS companion app for [AgentMonitor](https://github.com/davisbuilds/agentmonitor), providing real-time monitoring of AI agent activity (Claude Code, Codex) from iPhone, iPad, and Mac.
+Native SwiftUI companion app for [AgentMonitor](https://github.com/davisbuilds/agentmonitor)
+(iPhone, iPad, and Mac) that monitors AI agent activity from an AgentMonitor
+server (default `http://127.0.0.1:3141`); the app does nothing without one running.
 
-## Tech Stack
-- **Language**: Swift 6
-- **UI**: SwiftUI (iOS 18+)
-- **Architecture**: MVVM with `@Observable`
-- **Networking**: URLSession (no third-party dependencies)
-- **Persistence**: SwiftData (cache layer)
-- **Charts**: Swift Charts
-- **Concurrency**: Swift structured concurrency (async/await, actors)
-- **Discovery**: Network framework (Bonjour/mDNS)
+## Documentation Map
 
-## Project Structure
-```
-AgentMonitor/
-├── App/           # @main entry point, ContentView, tab routing
-├── Models/        # Codable structs matching server JSON contracts
-├── Services/      # APIClient, SSEClient, ServerConnection, Discovery
-├── ViewModels/    # @Observable classes per screen
-├── Views/         # SwiftUI views organized by tab
-└── Utilities/     # Formatters, constants, extensions
-```
+- `README.md` — introduction and setup; `CONTRIBUTING.md` — contribution scope.
+- `docs/ARCHITECTURE.md` — system design and module map.
+- `docs/DESIGN_DECISIONS.md` — rationale for each major technical choice.
+- `docs/API_CONTRACT.md` — the server API the app consumes.
+- `docs/TEST_STRATEGY.md` — intended test pyramid (target state, not what exists).
+- `docs/project/ROADMAP.md`, `docs/project/BACKLOG.md`.
+- `docs/project/GIT_HISTORY_POLICY.md` — merge strategy and local quality gates.
 
-## Key Conventions
-- Models are pure Swift (no SwiftUI imports), Codable + Sendable
-- ViewModels are `@Observable @MainActor` classes
-- Server JSON uses snake_case; decoder uses `.convertFromSnakeCase`
-- Enum types handle unknown server values via `.unknown(String)` cases
-- No third-party dependencies — everything built on Apple frameworks
+## Implementation Guardrails
 
-## Building
-Open `AgentMonitor.xcodeproj` in Xcode 16+ or build from CLI:
-```bash
-xcodegen generate                    # regenerate project from project.yml
-xcodebuild build -scheme AgentMonitor -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
-```
-
-The Xcode project is generated from `project.yml` using [XcodeGen](https://github.com/yonaskolb/XcodeGen). Regenerate after adding/removing files.
+- `AgentMonitor.xcodeproj` is generated from `project.yml` and gitignored. Run
+  `xcodegen generate` after adding or removing files; edit `project.yml`, not the
+  project.
+- No third-party dependencies: everything builds on Apple frameworks
+  (`docs/DESIGN_DECISIONS.md`). Adding one is the maintainer's decision.
+- Models are pure Swift (no SwiftUI imports), `Codable` + `Sendable`; ViewModels
+  are `@Observable @MainActor` classes.
+- Enums decoded from the server carry an `.unknown(String)` case so a new server
+  value never fails decoding.
 
 ## Testing
 
-- **Run tests**: `xcodebuild test -scheme AgentMonitor -destination 'platform=iOS Simulator,name=iPhone 17 Pro'` (or Cmd+U). The `AgentMonitorTests` target is declared in `project.yml`; regenerate with `xcodegen generate` after adding test files.
-- **Framework is Swift Testing** (`@Test`, `#expect`), not XCTest — match the existing style in `AgentMonitorTests/` rather than importing XCTest.
-- **TDD**: red/green for new features, major refactors, and large changes. The red step must fail for the behavior you're about to fix — a test that fails only because the symbol doesn't exist yet is a stub, not a red test; write the signature first, then a test that fails on the behavior. Skip the red step for code with no behavior to assert, and cover it after — but note a `Codable` model doesn't qualify: decoding is the contract against the server, and that's what every existing test here asserts. For smaller edits, still run the relevant existing tests before wrapping up.
-- **Coverage is thin**: `ModelDecodingTests.swift` is the only test file (6 tests over decoding and unknown-enum handling). `docs/TEST_STRATEGY.md` describes the intended pyramid — treat it as the target, not what exists. Services and ViewModels are untested; that's where TDD earns the most. See `docs/project/BACKLOG.md`.
-
-## Server Connection
-The app connects to an agentmonitor server (default `http://127.0.0.1:3141`). The server must be running for the app to function. See the agentmonitor project for server setup.
-
-## Documentation
-- `README.md` — public introduction, setup, and reference routing
-- `CONTRIBUTING.md` — public contribution scope and review expectations
-- `docs/ARCHITECTURE.md` — System design and module map
-- `docs/DESIGN_DECISIONS.md` — Rationale for every major technical choice
-- `docs/TEST_STRATEGY.md` — Intended testing approach by layer (target state; current coverage is model-decoding only)
-- `docs/API_CONTRACT.md` — Server API reference
-- `docs/project/ROADMAP.md` — Current direction and completed foundation
-- `docs/project/BACKLOG.md` — Future-only durable follow-ups
-- `docs/project/GIT_HISTORY_POLICY.md` — Merge strategy and branch hygiene
-
-For the delivered foundation, use the [Roadmap](docs/project/ROADMAP.md) and
-[design decisions](docs/DESIGN_DECISIONS.md).
+- **Local gate:** `xcodegen generate && xcodebuild test -scheme AgentMonitor -destination 'platform=iOS Simulator,name=iPhone 17 Pro'`
+  (builds the app, then runs the tests), plus `python3 scripts/check_publication_hygiene.py`.
+  In a fresh clone or worktree, first run
+  `mkdir -p "AgentMonitor/Resources/Preview Content"`: `project.yml` needs that
+  empty, untracked directory and the build fails without it (see Backlog). The
+  Mac app compiles the same sources, so for any code change also run
+  `xcodebuild test -scheme AgentMonitorMac -destination 'platform=macOS'`.
+- **CI does not build or test.** The only workflow runs the publication-hygiene
+  scan, so a green PR proves nothing about the app. Record the gate command, the
+  head it ran on, and its result in the PR body; a PR without that record is not
+  ready to merge.
+- Tests use Swift Testing (`@Test`, `#expect`), not XCTest; match
+  `AgentMonitorTests/`.
+- Only model decoding is tested; services and ViewModels have no tests yet (see
+  `docs/project/BACKLOG.md`). A `Codable` model is not "code with no behavior to
+  assert": decoding is the contract with the server, so new models get a decoding
+  test against a fixture.
 
 ## Working Agreement
 
-- **Push back before building.** If a request is incoherent or self-contradictory, or a spec/plan is vague or skips key decisions, stop and interview me — ask clarifying questions and confirm intent before writing code or changing files. Don't guess at scope or comply silently. (Clear, well-scoped requests don't need this.)
-- **Log durable follow-ups in `BACKLOG.md`.** Fix simple issues inline. For durable work, record What, Why or evidence, and a Next action or Revisit trigger; date volatile claims or mark them as hypotheses. Agents may execute entries directly. Use issues when discussion or coordination helps, keep one detailed owner, and reconcile affected entries as work lands.
-- **Keep docs current.** Update the owning reference when its stated behavior, contract, procedure, or direction changes. Reconcile an affected Backlog entry as work lands; update Roadmap when selected direction changes.
-- **Planning and continuity.** Reuse clear task context. Save planning docs when
-  decisions, acceptance, or coordination need persistence. Leave a brief handoff
-  only when needed to resume unfinished work. Commit shared docs and keep status
-  current. Before archiving under `docs/archive/`, preserve lasting decisions
-  and open work in maintained docs and repair links. Keep tracked docs suitable
-  for public readers and private evidence local.
-- **Commit logically.** Commit completed work in coherent chunks as you proceed. Push only when explicitly asked.
-- **Re-ground after compaction.** A compaction summary loses precise paths, context, and verification state — before continuing, re-read this project's `AGENTS.md`, its reference docs, and recent commits.
+- **Clarify before building** when a request is vague, contradictory, or skips a
+  key decision; clear, well-scoped requests need no interview.
+- **Fix small issues now; backlog the rest.** Fix simple, quick, or blocking
+  issues in this repo as part of the current change and call them out. Record in
+  `docs/project/BACKLOG.md` only what can't be finished now or needs the
+  maintainer's decision; don't open a branch or PR just for a backlog entry.
+- **Keep docs current** when a change makes a documented contract, boundary,
+  procedure, or direction stale.
+- **Plan and preserve continuity proportionately.** Reuse clear task context.
+  Save planning docs when decisions, acceptance, or coordination need
+  persistence, and leave a brief handoff only when needed to resume unfinished
+  work. Commit shared docs and keep their status current. `docs/archive/` is
+  gitignored and local-only: before moving a doc there, preserve lasting
+  decisions and open work in maintained docs and repair links. Keep tracked docs suitable for public readers and private
+  evidence local.
+- **Commit and push.** Commit coherent chunks, staging by explicit path. Push
+  your task branch and open a PR once the work is complete and the local gate
+  passes; don't push directly to `main`.
+- **Merge** only under the standing merge authority in the maintainer's workspace
+  instructions, or when the maintainer asks. Without those instructions in
+  context, leave the PR for the maintainer. Use a merge commit by default, rebase
+  only when the branch's commits are already clean; squash is disabled. A merge
+  ships nothing: there is no release or distribution automation.
+- **Re-ground after compaction** in source, this file, the owning docs, and
+  recent commits. A summary and your own earlier proposals are not user approval.
