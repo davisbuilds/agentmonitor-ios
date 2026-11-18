@@ -30,10 +30,7 @@ server (default `http://127.0.0.1:3141`); the app does nothing without one runni
 
 - **Local gate:** `xcodegen generate && xcodebuild test -scheme AgentMonitor -destination 'platform=iOS Simulator,name=iPhone 17 Pro'`
   (builds the app, then runs the tests), plus `python3 scripts/check_publication_hygiene.py`.
-  In a fresh clone or worktree, first run
-  `mkdir -p "AgentMonitor/Resources/Preview Content"`: `project.yml` needs that
-  empty, untracked directory and the build fails without it (see Backlog). The
-  Mac app compiles the same sources, so for any code change also run
+  The Mac app compiles the same sources, so for any code change also run
   `xcodebuild test -scheme AgentMonitorMac -destination 'platform=macOS'`.
 - **CI does not build or test.** The only workflow runs the publication-hygiene
   scan, so a green PR proves nothing about the app. Record the gate command, the
