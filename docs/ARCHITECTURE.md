@@ -140,8 +140,7 @@ AgentMonitor/
 │       └── String+Truncate.swift
 │
 └── Resources/
-    ├── Assets.xcassets
-    └── Preview Content/
+    └── Assets.xcassets
 ```
 
 ## Data Flow
