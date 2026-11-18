@@ -68,8 +68,9 @@ server (default `http://127.0.0.1:3141`); the app does nothing without one runni
   passes; don't push directly to `main`.
 - **Merge** only under the standing merge authority in the maintainer's workspace
   instructions, or when the maintainer asks. Without those instructions in
-  context, leave the PR for the maintainer. Use a merge commit by default, rebase
-  only when the branch's commits are already clean; squash is disabled. A merge
-  ships nothing: there is no release or distribution automation.
+  context, leave the PR for the maintainer.
+- **History and releases.** Squash is disabled: merge commit by default, rebase
+  only when the branch's commits are already clean. A merge ships nothing: there
+  is no release or distribution automation.
 - **Re-ground after compaction** in source, this file, the owning docs, and
   recent commits. A summary and your own earlier proposals are not user approval.
