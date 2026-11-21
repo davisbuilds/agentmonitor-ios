@@ -29,13 +29,14 @@ server (default `http://127.0.0.1:3141`); the app does nothing without one runni
 ## Testing
 
 - **Local gate:** `xcodegen generate && xcodebuild test -scheme AgentMonitor -destination 'platform=iOS Simulator,name=iPhone 17 Pro'`
-  (builds the app, then runs the tests), plus `python3 scripts/check_publication_hygiene.py`.
+  (builds the app, then runs the tests), plus `python3 scripts/check_publication_hygiene.py`
+  and `python3 scripts/check_comments.py`.
   The Mac app compiles the same sources, so for any code change also run
   `xcodebuild test -scheme AgentMonitorMac -destination 'platform=macOS'`.
 - **CI does not build or test.** The only workflow runs the publication-hygiene
-  scan, so a green PR proves nothing about the app. Record the gate command, the
-  head it ran on, and its result in the PR body; a PR without that record is not
-  ready to merge.
+  scan and the comment ratchet, so a green PR proves nothing about the app.
+  Record the gate command, the head it ran on, and its result in the PR body; a
+  PR without that record is not ready to merge.
 - Tests use Swift Testing (`@Test`, `#expect`), not XCTest; match
   `AgentMonitorTests/`.
 - Only model decoding is tested; services and ViewModels have no tests yet (see
@@ -47,6 +48,12 @@ server (default `http://127.0.0.1:3141`); the app does nothing without one runni
 
 - **Clarify before building** when a request is vague, contradictory, or skips a
   key decision; clear, well-scoped requests need no interview.
+- **Comments.** Don't add code comments. The one exception is a decision record:
+  start it with `WHY:` and state a non-obvious reason the code can't express.
+  Never justify a shortcut in a comment; fix it or record it in
+  `docs/project/BACKLOG.md`. `python3 scripts/check_comments.py` enforces a
+  ratchet: after deleting comments run it with `--update`, and never raise a
+  count in `.comment-baseline.json`.
 - **Fix small issues now; backlog the rest.** Fix simple, quick, or blocking
   issues in this repo as part of the current change and call them out. Record in
   `docs/project/BACKLOG.md` only what can't be finished now or needs the

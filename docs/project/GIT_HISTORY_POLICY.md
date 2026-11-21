@@ -32,8 +32,10 @@ is this repository's standing merge policy.
 
 ## CI Gates
 
-The publication-hygiene workflow does not build or test the app. Build and test
-gates run locally via `xcodebuild` against the iOS Simulator.
+The publication-hygiene workflow runs the publication-hygiene scan and the
+comment ratchet (`python3 scripts/check_comments.py`); it does not build or test
+the app. Build and test gates run locally via `xcodebuild` against the iOS
+Simulator.
 
 Quality gates before merge (also the pre-push expectation locally):
 
