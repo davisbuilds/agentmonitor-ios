@@ -41,3 +41,43 @@ Fix simple, quick, or blocking issues inline when within the active task's scope
   layers in `TEST_STRATEGY.md` as target-state or trim them to what's real.
 - Noted 2026-07-16 during the portfolio TDD-guidance pass; `AGENTS.md` Testing section
   now states the real coverage and flags the doc as target-state.
+
+### A discovered server connects to its Bonjour service name and an assumed port
+
+- **What**: `ServerDiscovery.updateServers` builds each `DiscoveredServer` with
+  `host` set to the Bonjour service instance name and `port` fixed at 3141.
+  `SettingsViewModel.connectToDiscovered` then connects to
+  `http://<service name>:3141`. Nothing resolves the service to a host and
+  port, although the comments at those lines say resolution happens on connect.
+- **Why or evidence**: a service instance name is a display label, not a DNS
+  hostname, and a server advertising another port is never reached. Picking a
+  discovered server likely fails unless the name happens to resolve
+  (**hypothesis, unmeasured**; found 2026-11-21 in the comment sweep, not run
+  against a live server).
+- **Next**: resolve the `NWBrowser.Result` endpoint (an `NWConnection` to the
+  service endpoint, or a `NetService` resolve) to a host and port before
+  building the URL, then delete the comments in `updateServers`.
+
+### Session messages show only a plain-text preview
+
+- **What**: `MessageBlockView` shows `contentPreview`, the text and tool-use
+  names from the message's JSON content blocks, cut to 500 characters and 10
+  lines. Thinking blocks, tool inputs and results, and the rest of long
+  messages are not shown.
+- **Why or evidence**: the session browser cannot show a full message. A
+  removed comment called this a stopgap until rich rendering of content blocks.
+- **Next**: decode `Message.content` into typed content blocks and render each
+  kind, with long text expandable.
+
+### Session list refresh and pagination failures leave no visible trace
+
+- **What**: `SessionsViewModel.loadMore` catches a failed page fetch and only
+  prints it in DEBUG builds. The `sessionUpdate` handler in
+  `MonitorViewModel.handle` refetches with `try?` and silently keeps the stale
+  list.
+- **Why or evidence**: a dropped connection mid-scroll or a failed refresh looks
+  like the end of the list or an up-to-date list. `SessionsView` shows `error`
+  only when the list is empty, so setting it would not replace loaded rows.
+- **Next**: set `error` in `loadMore`'s catch and show a non-destructive retry
+  row when rows are already loaded; decide whether the live refresh should
+  surface its failure the same way.
