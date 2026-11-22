@@ -89,7 +89,7 @@ struct ModelDecodingTests {
         let event = try decoder.decode(AgentEvent.self, from: json)
 
         #expect(event.totalTokens == 1540)
-        #expect(event.formattedCost == "<$0.01") // 0.0023 < 0.01
+        #expect(event.formattedCost == "<$0.01")
     }
 
     @Test("Stats.empty has zero values")
@@ -104,7 +104,7 @@ struct ModelDecodingTests {
 
     private func loadFixture(_ name: String) -> Data {
         let testBundle = Bundle(for: BundleToken.self)
-        // XcodeGen copies resources flat (no subdirectory) or in Fixtures/ depending on config
+        // WHY: XcodeGen copies resources flat (no subdirectory) or in Fixtures/ depending on config.
         let url = testBundle.url(forResource: name, withExtension: "json", subdirectory: "Fixtures")
             ?? testBundle.url(forResource: name, withExtension: "json")
         guard let url else {
@@ -114,5 +114,4 @@ struct ModelDecodingTests {
     }
 }
 
-// Anchor class for Bundle(for:) in Xcode test targets
 private class BundleToken {}

@@ -13,7 +13,6 @@ final class SettingsViewModel {
         self.connection = connection
         self.discovery = discovery
 
-        // Load saved URL
         if let saved = ServerConnection.savedServerURL {
             serverURLString = saved.absoluteString
         } else {

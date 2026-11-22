@@ -15,7 +15,7 @@ struct Stats: Codable, Sendable {
     let branches: [String]
 
     var formattedCost: String {
-        Formatters.cost(totalCostUsd)  // nonisolated, safe from any context
+        Formatters.cost(totalCostUsd)
     }
 
     var totalTokens: Int {

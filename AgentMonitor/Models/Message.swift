@@ -5,7 +5,7 @@ struct Message: Codable, Identifiable, Sendable {
     let sessionId: String
     let ordinal: Int
     let role: MessageRole
-    let content: String   // JSON-serialized ContentBlock array
+    let content: String   // WHY: a JSON-serialized ContentBlock array
     let timestamp: String?
     let hasThinking: Bool
     let hasToolUse: Bool

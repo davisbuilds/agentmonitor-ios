@@ -9,7 +9,6 @@ final class SearchViewModel {
     var isSearching = false
     var error: String?
 
-    // Filters
     var selectedProject: String?
     var selectedAgent: String?
 
@@ -31,7 +30,6 @@ final class SearchViewModel {
         }
 
         searchTask = Task {
-            // Debounce
             try? await Task.sleep(nanoseconds: Constants.searchDebounceMs)
             if Task.isCancelled { return }
 
