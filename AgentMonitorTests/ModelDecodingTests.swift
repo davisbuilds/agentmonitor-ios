@@ -104,7 +104,7 @@ struct ModelDecodingTests {
 
     private func loadFixture(_ name: String) -> Data {
         let testBundle = Bundle(for: BundleToken.self)
-        // WHY: XcodeGen copies resources flat (no subdirectory) or in Fixtures/ depending on config.
+        // WHY: XcodeGen can flatten copied fixtures, so the test also checks the bundle root.
         let url = testBundle.url(forResource: name, withExtension: "json", subdirectory: "Fixtures")
             ?? testBundle.url(forResource: name, withExtension: "json")
         guard let url else {

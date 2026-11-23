@@ -21,8 +21,8 @@ struct CostEntry: Codable, Identifiable, Sendable {
         Formatters.cost(costUsd)
     }
 
-    // WHY: the server names the key `project` or `model` depending on the breakdown
-    // type; decoding normalizes both to `key`.
+    // WHY: the API uses different keys for project and model breakdowns,
+    // so a synthesized decoder cannot read both.
     enum CodingKeys: String, CodingKey {
         case project, model, costUsd
     }

@@ -48,7 +48,7 @@ final class MonitorViewModel {
             sessions = try await sessionsResult
             filterOptions = try await filtersResult
 
-            // WHY: these fetches are non-critical, so a failure must not block the dashboard.
+            // WHY: the live feed and active sessions stay usable when analytics endpoints fail.
             costBreakdown = try? await api.fetch(.costStats)
             toolStats = (try? await api.fetch(.toolStats) as [ToolStat]) ?? []
             usageMonitor = (try? await api.fetch(.usageMonitor) as [UsageMonitorEntry]) ?? []

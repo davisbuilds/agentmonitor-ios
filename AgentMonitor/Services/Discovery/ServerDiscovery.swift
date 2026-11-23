@@ -62,7 +62,7 @@ final class ServerDiscovery {
                 id: name,
                 name: name,
                 host: name, // Will be resolved when connecting
-                port: 3141  // Default port
+                port: 3141
             )
         }
     }
