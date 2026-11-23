@@ -44,7 +44,7 @@ struct UsageWindow: Codable, Identifiable, Sendable {
 }
 
 enum UsageSeverity: Sendable {
-    case normal   // < 60%
-    case warning  // 60-85%
-    case critical // > 85%
+    case normal
+    case warning
+    case critical
 }

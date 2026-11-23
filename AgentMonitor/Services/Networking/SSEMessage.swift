@@ -9,5 +9,6 @@ enum SSEMessage: Sendable {
 }
 
 struct SessionUpdatePayload: Codable, Sendable {
-    let type: String  // idle_check, session_parsed, auto_import, resync
+    /// Server event type. Known values are `idle_check`, `session_parsed`, `auto_import` and `resync`.
+    let type: String
 }

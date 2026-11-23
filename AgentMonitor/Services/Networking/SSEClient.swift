@@ -28,7 +28,6 @@ actor SSEClient {
         agentType: String? = nil,
         eventType: String? = nil
     ) -> AsyncStream<SSEMessage> {
-        // Cancel any existing connection
         task?.cancel()
 
         return AsyncStream { continuation in
@@ -66,7 +65,6 @@ actor SSEClient {
                             if Task.isCancelled { break }
 
                             if line.isEmpty {
-                                // Empty line = end of message
                                 if !dataLines.isEmpty {
                                     let data = dataLines.joined(separator: "\n")
                                     if let message = Self.parse(eventType: eventType, data: data) {
@@ -80,7 +78,7 @@ actor SSEClient {
                             } else if line.hasPrefix("data:") {
                                 dataLines.append(String(line.dropFirst(5)).trimmingCharacters(in: .whitespaces))
                             } else if line.hasPrefix(":") {
-                                // Comment / heartbeat — ignore
+                                // WHY: the server keeps the connection alive with comment frames, which carry no event payload.
                             } else if line.hasPrefix("retry:") {
                                 if let ms = Int(line.dropFirst(6).trimmingCharacters(in: .whitespaces)) {
                                     await self.setRetryInterval(TimeInterval(ms) / 1000.0)
@@ -96,7 +94,6 @@ actor SSEClient {
 
                     if Task.isCancelled { break }
 
-                    // Reconnect with backoff
                     await self.setState(.reconnecting)
                     let delay = await self.retryInterval
                     try? await Task.sleep(for: .seconds(delay))

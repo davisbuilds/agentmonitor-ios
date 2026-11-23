@@ -8,7 +8,6 @@ final class SessionsViewModel {
     var error: String?
     var hasMore = false
 
-    // Filters
     var selectedProject: String?
     var selectedAgent: String?
     var availableProjects: [String] = []
@@ -59,7 +58,6 @@ final class SessionsViewModel {
             nextCursor = response.nextCursor
             hasMore = response.hasMore
         } catch {
-            // Don't overwrite existing data on pagination failure
             #if DEBUG
             print("[Sessions] Pagination error: \(error)")
             #endif

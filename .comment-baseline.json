@@ -2,24 +2,7 @@
   "version": 1,
   "exclude": [],
   "files": {
-    "AgentMonitor/App/AgentMonitorApp.swift": 1,
-    "AgentMonitor/Models/CostBreakdown.swift": 2,
-    "AgentMonitor/Models/Message.swift": 1,
-    "AgentMonitor/Models/Stats.swift": 1,
-    "AgentMonitor/Models/UsageMonitor.swift": 3,
-    "AgentMonitor/Services/Discovery/ServerDiscovery.swift": 3,
-    "AgentMonitor/Services/Networking/APIEndpoint.swift": 2,
-    "AgentMonitor/Services/Networking/SSEClient.swift": 4,
-    "AgentMonitor/Services/Networking/SSEMessage.swift": 1,
-    "AgentMonitor/Utilities/Constants.swift": 1,
-    "AgentMonitor/Utilities/Extensions/Color+Theme.swift": 4,
-    "AgentMonitor/ViewModels/MonitorViewModel.swift": 3,
-    "AgentMonitor/ViewModels/SearchViewModel.swift": 2,
-    "AgentMonitor/ViewModels/SessionsViewModel.swift": 2,
-    "AgentMonitor/ViewModels/SettingsViewModel.swift": 1,
-    "AgentMonitor/Views/Sessions/MessageBlockView.swift": 5,
-    "AgentMonitorTests/ModelDecodingTests.swift": 3,
-    "project.yml": 4,
+    "AgentMonitor/Services/Discovery/ServerDiscovery.swift": 2,
     "scripts/check_publication_hygiene.py": 4
   }
 }

@@ -36,9 +36,6 @@ struct MessageBlockView: View {
                     }
                 }
 
-                // Content is JSON-serialized ContentBlock array.
-                // For now, show a truncated plain text preview.
-                // Phase 3 will add rich rendering.
                 Text(contentPreview)
                     .font(.callout)
                     .foregroundStyle(.primary)
@@ -55,8 +52,6 @@ struct MessageBlockView: View {
     }
 
     private var contentPreview: String {
-        // The content field is a JSON array of content blocks.
-        // Extract text blocks for preview.
         guard let data = message.content.data(using: .utf8),
               let blocks = try? JSONSerialization.jsonObject(with: data) as? [[String: Any]] else {
             return message.content.prefix(500).description

@@ -2,7 +2,6 @@ import Foundation
 
 /// Defines all server API endpoints the app consumes.
 enum APIEndpoint {
-    // V1 — Real-time monitoring
     case health
     case stats
     case costStats
@@ -15,7 +14,6 @@ enum APIEndpoint {
     case filterOptions
     case stream(agentType: String?, eventType: String?)
 
-    // V2 — Session browser
     case v2Sessions(filters: V2SessionFilters)
     case v2SessionDetail(id: String)
     case v2SessionMessages(id: String, offset: Int, limit: Int)

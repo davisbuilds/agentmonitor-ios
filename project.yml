@@ -16,7 +16,6 @@ settings:
     SWIFT_STRICT_CONCURRENCY: complete
 
 targets:
-  # iOS app (iPhone + iPad)
   AgentMonitor:
     type: application
     platform: iOS
@@ -51,7 +50,6 @@ targets:
         NSBonjourServices:
           - "_agentmonitor._tcp."
 
-  # macOS app (native)
   AgentMonitorMac:
     type: application
     platform: macOS
@@ -85,7 +83,6 @@ targets:
         com.apple.security.app-sandbox: true
         com.apple.security.network.client: true
 
-  # iOS tests
   AgentMonitorTests:
     type: bundle.unit-test
     platform: iOS
@@ -102,7 +99,6 @@ targets:
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/AgentMonitor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AgentMonitor"
         BUNDLE_LOADER: "$(TEST_HOST)"
 
-  # macOS tests
   AgentMonitorMacTests:
     type: bundle.unit-test
     platform: macOS

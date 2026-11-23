@@ -16,7 +16,6 @@ final class MonitorViewModel {
     var isLoading = false
     var error: String?
 
-    // Active filters
     var selectedAgentType: String?
     var selectedEventType: String?
     var selectedToolName: String?
@@ -49,7 +48,7 @@ final class MonitorViewModel {
             sessions = try await sessionsResult
             filterOptions = try await filtersResult
 
-            // Non-critical fetches — don't block on failure
+            // WHY: the live feed and active sessions stay usable when analytics endpoints fail.
             costBreakdown = try? await api.fetch(.costStats)
             toolStats = (try? await api.fetch(.toolStats) as [ToolStat]) ?? []
             usageMonitor = (try? await api.fetch(.usageMonitor) as [UsageMonitorEntry]) ?? []
@@ -104,7 +103,6 @@ final class MonitorViewModel {
             }
 
         case .sessionUpdate:
-            // Re-fetch sessions on lifecycle changes
             Task {
                 guard let api = connection.apiClient else { return }
                 sessions = (try? await api.fetch(.sessions(filters: SessionFilters(excludeStatus: "ended")))) ?? sessions
